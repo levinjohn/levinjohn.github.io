@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -213,213 +213,356 @@ button {
     } 
   }
 }
+
+.progress {
+    width: 100%;
+    height: 40px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-done {
+    height: 100%;
+    background: linear-gradient(to right, #00cc00, #00cc00);
+    transition: width 0.3s ease;
+}
+
+/* Styles for progress bar colors based on score range */
+.progress-green .progress-done {
+    background: linear-gradient(to right, #00cc00, #00cc00);
+}
+
+.progress-yellow .progress-done {
+    background: linear-gradient(to right, #ffff00, #ffff00);
+}
+
+.progress-red .progress-done {
+    background: linear-gradient(to right, #ff0000, #ff0000);
+}
+
+/* Label styles */
+.progress-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #0e0d0d;
+    font-weight: bold;
+}
+
+
+#result-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.Sideimage{
+  background-image: url("static/static/images/Website-medicines.png");
+  opacity: 0.5;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+@media (max-width: 767px) {
+    #result-container {
+        padding: 10px;
+    }
+}
+
+hr{
+  width: 70vh;
+}
+
     </style>
 
 </head>
 
 <body>
    
-    <div class="container">
+    <div class="row d-flex">
+      <div class="col col-xl-3 col-lg-3 Sideimage">
+
+      </div>
+      <div class="col col-xl-6 col-lg-6" style="background-color: #e5eaf5;border: 4px solid rgb(233, 212, 212);">
+
+      
         <br>
         <center><h1><b><i>Pneumotoxicity Risk Score Predictor</i></b></h1></center>
         <center><p>A score calculator used topredict the risk score before starting medicines</p></center>
 
         <div class="mt-5 mx-5 container" id="mainCont">
             <h4><b>Question 1 :</b></h4>
-            <li class="mt-3">Does you patient have pre-existing ILD?</li>
-            <div class="ms-4 mt-3">
-            <input type="radio" name="choice" value="yes" id="yes"> <label for="yes">Yes</label><br>
-            <input type="radio" name="choice" value="no" id="no"> <label for="no">No</label><br>
-            </div>
-            <br>
-            <hr>
-            <div class="hidden" id="hiddenDiv">
-            <h4><b>Question 2 :</b></h4>
             <li class="mt-3">Which rheumatological drug are you prescribing?</li>
             <div class="row mt-3">
-                <div class="col col-xl-3 col-lg-3 ms-4">
+                <div class="col col-xl-5 col-lg-5 ms-4">
                     <label for="drugSelect">Select a drug:</label>
-                    <select id="drugSelect" name="drug">
-                        <option value="Abatacept" data-score="1">Abatacept</option>
-                        <option value="Adalimumab" data-score="2">Adalimumab</option>
-                        <option value="Anakinra" data-score="2">Anakinra</option>
-                        <option value="Baricitinib" data-score="1">Baricitinib</option>
-                        <option value="Certolizumab" data-score="2">Certolizumab</option>
-                        <option value="Etanercept" data-score="2">Etanercept</option>
-                        <option value="Golimumab" data-score="2">Golimumab</option>
-                        <option value="Infliximab" data-score="2">Infliximab</option>
-                        <option value="Leflunomide" data-score="2">Leflunomide</option>
-                        <option value="Methotrexate" data-score="2">Methotrexate</option>
-                        <option value="Rituximab" data-score="2">Rituximab</option>
-                        <option value="Sulphasalazine" data-score="1">Sulphasalazine</option>
-                        <option value="Tocilizumab" data-score="1">Tocilizumab</option>
-                        <option value="Tofacitinib" data-score="2">Tofacitinib</option>
-                        <option value="Ustekinumab" data-score="2">Ustekinumab</option>
+                    <select id="q1" name="q1" >
+                        <option value="1" data-score="1">Abatacept</option>
+                        <option value="2" data-score="2">Adalimumab</option>
+                        <option value="2" data-score="2">Anakinra</option>
+                        <option value="1" data-score="1">Baricitinib</option>
+                        <option value="2" data-score="2">Certolizumab</option>
+                        <option value="2" data-score="2">Etanercept</option>
+                        <option value="2" data-score="2">Golimumab</option>
+                        <option value="2" data-score="2">Infliximab</option>
+                        <option value="2" data-score="2">Leflunomide</option>
+                        <option value="2" data-score="2">Methotrexate</option>
+                        <option value="2" data-score="2">Rituximab</option>
+                        <option value="1" data-score="1">Sulphasalazine</option>
+                        <option value="1" data-score="1">Tocilizumab</option>
+                        <option value="2" data-score="2">Tofacitinib</option>
+                        <option value="2" data-score="2">Ustekinumab</option>
                 </select>
                 </div>
                 
               
             </div><br>
             <hr>
-            <h4><b>Question 3 :</b></h4>
+            <h4><b>Question 2 :</b></h4>
             <li class="mt-3">What is the age of the patient</li>
             <div class="ms-4 mt-3">
                 <label for="age">Select a drug:</label>
-                <select id="age" name="age">
-                    <option value="40" data-score="1">&lt;40</option>
-                    <option value="50" data-score="2">40-69</option>
-                    <option value="69" data-score="2">&gt;69</option>
+                <select id="q2" name="q2">
+                    <option value="1" data-score="1">&lt;40</option>
+                    <option value="2" data-score="2">40-69</option>
+                    <option value="2" data-score="2">&gt;69</option>
             </select>
 
-
-<!-- 
-                <input type="radio" name="age" value="40" data-score="1"> <label for="40">&lt;40</label><br>
-                <input type="radio" name="age" value="50" data-score="2"> <label for="50">40-69</label><br>
-                <input type="radio" name="age" value="69" data-score="3"> <label for="69">&gt;69</label><br> -->
             </div><br>
             <hr>
-            <h4><b>Question 4 :</b></h4>
+            <h4><b>Question 3 :</b></h4>
             <li class="mt-3">what is the smoking history?</li>
             <div class="ms-4 mt-3">
                 <label for="history">Select a drug:</label>
-                <select id="history" name="history">
-                    <option value="Never" data-score="1">Never</option>
-                    <option value="Ex-smoker" data-score="2">Ex-smoker</option>
-                    <option value="Current" data-score="2">Current</option>
+                <select id="q3" name="q3">
+                    <option value="1" data-score="1">Never</option>
+                    <option value="2" data-score="2">Ex-smoker</option>
+                    <option value="2" data-score="2">Current</option>
             </select>
-                <!-- <input type="radio" name="history" value="Never" data-score="1"> <label for="Never">Never</label><br>
-                <input type="radio" name="history" value="Ex-smoker" data-score="2"> <label for="Ex-smoker">Ex-smoker</label><br>
-                <input type="radio" name="history" value="Current" data-score="3"> <label for="Current">Current</label><br> -->
             </div><br><hr>
-            <h4><b>Question 5 :</b></h4>
+            <h4><b>Question 4 :</b></h4>
             <li class="mt-3">What is the underlying connective tissue disease?</li>
-            <div class="row mt-3">
-                <div class="col col-xl-3 col-lg-3 ms-4 mb-5">
+            <div class="row mt-3 mb-4">
+                <div class="col col-xl-4 col-lg-4 ms-4">
 
                     <label for="tissue">Select a drug:</label>
-                    <select id="tissue" name="tissue">
-                        <option value="Ank Spond" data-score="1">Ank Spond</option>
-                        <option value="Anti-synth" data-score="2">Anti-synth</option>
-                        <option value="MCTD" data-score="2">MCTD</option>
-                        <option value="Psoriatic arthropathy" data-score="1">Psoriatic arthropathy</option>
-                        <option value="RA" data-score="2">RA</option>
-                        <option value="sarcoidosis" data-score="2">sarcoidosis</option>
-                        <option value="SSc" data-score="2">SSc</option>
-                        <option value="SLE" data-score="2">SLE</option>
-                        <option value="Sjogrens" data-score="2">Sjogrens</option>
-                        <option value="Vasculitis" data-score="2">Vasculitis</option>
+                    <select id="q4" name="q4" style="width: 17rem;">
+                        <option value="1" data-score="1">Ankylosing Spondylitis</option>
+                        <option value="2" data-score="2">Anti-synthetase syndromes</option>
+                        <option value="2" data-score="2">Mixed Connective Tissue Disease</option>
+                        <option value="1" data-score="1">Psoriatic arthropathy</option>
+                        <option value="2" data-score="2">Rheumatoid Arthritis</option>
+                        <option value="2" data-score="2">Sarcoidosis</option>
+                        <option value="2" data-score="2">Systemic Sclerosis</option>
+                        <option value="2" data-score="2">Systemic Lupus Erythematosus</option>
+                        <option value="2" data-score="2">Sjögren's Syndrome</option>
+                        <option value="2" data-score="2">Vasculitis</option>
                         
-                </select>
-            </div><br><hr>
-            <h4><b>Question 6 :</b></h4>
+                </select><br><br>
+            </div>  </div><hr>
+
+            <h4><b>Question 5 :</b></h4>
             <li class="mt-3">What is the underlying activity of the CTD?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="age" value="Low" data-score="1"> <label for="Low">Low</label><br>
-                <input type="radio" name="age" value="Med" data-score="2"> <label for="Med">Medium</label><br>
-                <input type="radio" name="age" value="High" data-score="3"> <label for="High">High</label><br>
-            </div><br><hr>
-            <h4><b>Question 7 :</b></h4>
+                <input type="radio" name="q5" value="1" data-score="1"> <label for="Low">Low</label><br>
+                <input type="radio" name="q5" value="2" data-score="2"> <label for="Med">Medium</label><br>
+                <input type="radio" name="q5" value="3" data-score="3"> <label for="High">High</label><br>
+                
+            </div><hr>
+            <h4><b>Question 6 :</b></h4>
             <li class="mt-3">Does the patient have the following cardiac disease</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="disease" value="No" data-score="1"> <label for="No">No disease or coronary artery disease only</label><br>
-                <input type="radio" name="disease" value="LVF" data-score="2"> <label for="LVF">Pulmonary Hypertension, LVF or Cor-Pulmonale</label><br>
-            </div><br><hr>
-            <h4><b>Question 8 :</b></h4>
-            <li class="mt-3">What is the EGFR?</li>
+                <input type="radio" name="q6" value="1" data-score="1"> <label for="No">No disease or coronary artery disease only</label><br>
+                <input type="radio" name="q6" value="2" data-score="2"> <label for="LVF">Pulmonary Hypertension, Left Ventricular dysfunction or Cor-Pulmonale</label><br>
+            </div><hr>
+            <h4><b>Question 7 :</b></h4>
+            <li class="mt-3">What is the Estimated Glomerular Filtration Rate (EGFR) ?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="EGFR" value="less" data-score="1"> <label for="less">≥ 60</label><br>
-                <input type="radio" name="EGFR" value="more" data-score="2"> <label for="more">&lt; 60</label><br>
-            </div><br><hr>
-            <h4><b>Question 9 :</b></h4>
+                <input type="radio" name="q7" value="1" data-score="1"> <label for="less">≥ 60</label><br>
+                <input type="radio" name="q7" value="2" data-score="2"> <label for="more">&lt; 60</label><br>
+            </div><hr>
+            <h4><b>Question 8 :</b></h4>
             <li class="mt-3">Has the patient had pneumotoxicity to a previous rheumatological drug?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="rheumatological" value="ye" data-score="1"> <label for="ye">Yes</label><br>
-                <input type="radio" name="rheumatological" value="n" data-score="2"> <label for="n">No</label><br>
-            </div><br>  <hr>
-            <h4><b>Question 10 :</b></h4>
+              <input type="radio" name="q8" value="2" data-score="2"> <label for="n">No</label><br>
+                <input type="radio" name="q8" value="1" data-score="1"> <label for="ye">Yes</label><br>
+
+            </div><hr>
+            <h4><b>Question 9 :</b></h4>
             <li class="mt-3">Does the patient have pre-existing ILD?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="ILD" value="tru" data-score="1"> <label for="tru">No</label><br>
-                <input type="radio" name="ILD" value="fal" data-score="2"> <label for="fal">Yes</label><br>
-            </div><br> <hr>
-            <h4><b>Question 11 :</b></h4>
+                <input type="radio" name="q9" value="1" data-score="1" id="no"> <label for="tru">No</label><br>
+                <input type="radio" name="q9" value="2" data-score="2" id="yes"> <label for="fal">Yes</label><br>
+            </div>
+            <div class="hidden" id="hiddenDiv">
+              <hr>
+            <h4><b>Question 10 :</b></h4>
             <li class="mt-3">What is the underlying pattern of ILD?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="pattern" value="UIP" data-score="1"> <label for="UIP">Definite UIP or obvious Honeycombing</label><br>
-                <input type="radio" name="pattern" value="Any" data-score="2"> <label for="Any">Any other pattern</label><br>
-            </div><br>  <hr>
-            <h4><b>Question 12 :</b></h4>
-            <li class="mt-3">What percentage of the lung is involved in ILD?</li>
+                <input type="radio" name="q10" value="1" data-score="1"> <label for="UIP">Definite UIP or definite honeycombing</label><br>
+                <input type="radio" name="q10" value="2" data-score="2"> <label for="Any">Any other pattern</label><br>
+            </div> <hr>
+            <h4><b>Question 11 :</b></h4>
+            <li class="mt-3">What is the approximate percentage of lung involved in ILD on CT scan ?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="percentage" value="twenty" data-score="1"> <label for="twenty">&lt;20</label><br>
-                <input type="radio" name="percentage" value="thirty" data-score="2"> <label for="thirty">20-39</label><br>
-                <input type="radio" name="percentage" value="mthirty" data-score="3"> <label for="mthirty">&gt;40</label><br>
-            </div><br> <hr> 
-            <h4><b>Question 13 :</b></h4>
+                <input type="radio" name="q11" value="1" data-score="1"> <label for="twenty">&lt;20</label><br>
+                <input type="radio" name="q11" value="2" data-score="2"> <label for="thirty">20-39</label><br>
+                <input type="radio" name="q11" value="3" data-score="3"> <label for="mthirty">&gt;40</label><br>
+            </div> <hr> 
+            <h4><b>Question 12 :</b></h4>
             <li class="mt-3">What is the percentage predicted FVC?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="FVC" value="Fmore" data-score="1"> <label for="Fmore">FVC≥60</label><br>
-                <input type="radio" name="FVC" value="Fless" data-score="2"> <label for="Fless">FVC&lt;60</label><br>
-            </div><br> <hr>   
-            <h4><b>Question 14 :</b></h4>
+                <input type="radio" name="q12" value="1" data-score="1"> <label for="Fmore">FVC≥60</label><br>
+                <input type="radio" name="q12" value="2" data-score="2"> <label for="Fless">FVC&lt;60</label><br>
+            </div><hr>   
+            <h4><b>Question 13 :</b></h4>
             <li class="mt-3">What is the percentage predicted TCLO?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="TCLO" value="80" data-score="1"> <label for="80">TLCO&gt;80</label><br>
-                <input type="radio" name="TCLO" value="33" data-score="2"> <label for="33">TLCO 30-79</label><br>
-                <input type="radio" name="TCLO" value="more30" data-score="3"> <label for="more30">TLCO &lt;30</label><br>
-            </div><br> <hr> 
-            <h4><b>Question 15 :</b></h4>
-            <li class="mt-3"> Do have serial data (serial HRCTs, serial lung function) that informs if the pre-existing ILD
-                has progressed?</li>
+                <input type="radio" name="q13" value="1" data-score="1"> <label for="80">TLCO&gt;80</label><br>
+                <input type="radio" name="q13" value="2" data-score="2"> <label for="33">TLCO 30-79</label><br>
+                <input type="radio" name="q13" value="3" data-score="3"> <label for="more30">TLCO &lt;30</label><br>
+            </div><hr> 
+            <h4><b>Question 14 :</b></h4>
+            <li class="mt-3">Do you have serial data (serial HRCTs or serial lung function) that informs if the pre-existing ILD has progressed?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="progressed" value="yeah" data-score="1"> <label for="yeah">Yes</label><br>
-                <input type="radio" name="progressed" value="nop" data-score="2"> <label for="nop">No</label><br>
-            </div><br> <hr> 
-        </div>
-    </div> </div>
-    <div id="result-container">
-        <div id="result"></div>
-    </div>
-       <button class="btn-pill mb-5" onclick="calculateScore()" id="btn">  <span>Calculate Score</span></button>
+                <input type="radio" name="q14" value="2" data-score="2" id="nope"> <label for="nope">No</label><br>
+                <input type="radio" name="q14" value="1" data-score="1" id="yeah"> <label for="yeah">Yes</label><br>
 
+            </div> <hr> 
+            <div class="hidden" id="innerHiddenDiv">
+              <h4><b>Question 15 :</b></h4>
+              <li class="mt-3">Has the CT changed over the last 2 years ?</li>
+              <div class="ms-4 mt-3 mb-5">
+                  <input type="radio" name="q15" value="1" data-score="1"> <label for="80">No or minimal progression or not known</label><br>
+                  <input type="radio" name="q15" value="2" data-score="2"> <label for="33">Mild progression</label><br>
+                  <input type="radio" name="q15" value="3" data-score="3"> <label for="more30">Mod or severe progression</label><br>
+              </div> <hr> 
+              <h4><b>Question 16 :</b></h4>
+            <li class="mt-3">Has the FVC declined in the last 2 years</li>
+            <div class="ms-4 mt-3 mb-5">
+                <input type="radio" name="q16" value="2" data-score="2"> <label for="nop">No or &lt;5% decline</label><br>
+                <input type="radio" name="q16" value="1" data-score="1"> <label for="yeah">≥5% decline</label><br>
+
+            </div><br>
+            </div>
+        </div>
+    <!-- </div>  -->
+
+       <button class="btn-pill mb-5" onclick="calculateScore()" id="btn">  <span>Calculate Score</span></button>
 
 
 </div>
 
 
+<div class="container" id="result-container">
+  <div id="result" style="height: 80vh;"></div>
+  <button class="btn-pill btn-sm mb-5" onclick="goBack()" id="goBackBtn" style="display: none; height: min-content;width: fit-content;"> <span>Go Back</span></button>
+  
+</div>
+<!--  container -->
+</div>
+<div class="col col-xl-3 col-lg-3 Sideimage">
 
-
+</div>
+</div>
     <script>
-         var yesRadioButton = document.getElementById('yes');
+    var yesRadioButton = document.getElementById('yes');
     var noRadioButton = document.getElementById('no');
     var questionDiv = document.getElementById('hiddenDiv');
+    var resultDiv = document.getElementById('result-container');
+    var innerDiv = document.getElementById('innerHiddenDiv');
+    var yeahRadioButton = document.getElementById('yeah');
+    var nopeRadioButton = document.getElementById('nope');
 
-    yesRadioButton.addEventListener('change', function() {
+
+    noRadioButton.addEventListener('change', function() {
         questionDiv.classList.add('hidden');
     });
 
-    noRadioButton.addEventListener('change', function() {
+    yesRadioButton.addEventListener('change', function() {
         questionDiv.classList.remove('hidden');
     });
 
+    yeahRadioButton.addEventListener('change', function() {
+        innerDiv.classList.add('hidden');
+    });
+
+    nopeRadioButton.addEventListener('change', function() {
+        innerDiv.classList.remove('hidden');
+    });
+
+
     function calculateScore() {
-            var options = document.querySelectorAll("select[data-score], input[type='radio']:checked[data-score]");
-            var totalScore = 0;
+    let totalScore = 0;
+    let displayMessage = "";
 
-            options.forEach(function (option) {
-                totalScore += parseInt(option.getAttribute("data-score"));
-            });
+    for (let i = 1; i <= 16; i++) {
+        const selectElement = document.getElementById(`q${i}`);
+        const radioElement = document.querySelector(`input[name="q${i}"]:checked`);
 
-            var mainCont = document.getElementById("mainCont");
-            mainCont.style.display = 'none';
-
-            var mainCont = document.getElementById("btn");
-            mainCont.style.display = 'none';
-
-            var resultDiv = document.getElementById("result");
-            resultDiv.style.display = "block";
-            resultDiv.textContent = "Total Score: " + totalScore;
+        if (selectElement && selectElement.tagName === 'SELECT') {
+            totalScore += parseInt(selectElement.value);
+        } else if (radioElement && radioElement.type === 'radio') {
+            totalScore += parseInt(radioElement.value);
         }
+    }
+
+    const q9Radio = document.querySelector('input[name="q9"]:checked');
+    const q14Radio = document.querySelector('input[name="q14"]:checked');
+    if (q9Radio && q9Radio.value === '1') {
+        displayMessage = `<span style='font-family: Garamond; font-size: 20px;'> Your patient does not have pre-existing ILD and has a score of ${totalScore}. A Delphi consensus suggests that a score of 8 is associated with very low risk, a score of 15 is associated with low risk and a score of 19 is associated with medium risk of developing pneumotoxicity </span>`;
+    }
+    else if (q14Radio && q14Radio.value === '1') {
+        displayMessage = `<span style='font-family: Garamond; font-size: 20px;'> Your patient has pre-existing ILD and information for historical progression of ILD and has a score of  ${totalScore}. A Delphi consensus suggests that a score of 15 is associated with low risk, a score of 19 is associated with medium risk and a score of 35 is associated with high risk of developing pneumotoxicity </span>`
+    }
+    else if (q14Radio && q14Radio.value === '2') {
+      displayMessage = `<span style='font-family: Garamond; font-size: 20px;'> Your patient has pre-existing ILD and has a score of ${totalScore}. A Delphi consensus suggests that a score of 13 is associated with low risk, a score of 19 is associated with medium risk and a score of 30 is associated with high risk of developing pneumotoxicity </span>`
+    }
+    const progressBarPercentage = (totalScore / 36) * 100;
+
+    let progressBarColorClass = '';
+    if (totalScore <= 10) {
+        progressBarColorClass = 'progress-green';
+    } else if (totalScore <= 25) {
+        progressBarColorClass = 'progress-yellow';
+    } else {
+        progressBarColorClass = 'progress-red';
+    }
+
+    document.getElementById('result-container').style.display = 'block';
+    const resultContainer = document.getElementById('result');
+    resultContainer.innerHTML  = `Total Score: ${totalScore}<br><br>${displayMessage}<br><br>`;
+    resultContainer.innerHTML += `
+    <center>
+        <div class="progress ${progressBarColorClass}">
+            <div class="progress-done" style="width: ${progressBarPercentage}%; opacity: 1;">
+                <div class="progress-label">${getScoreLabel(totalScore)}</div>
+            </div>
+        </div>
+    </center>
+`;
+
+function getScoreLabel(score) {
+    if (score <= 10) {
+        return 'Low';
+    } else if (score <= 25) {
+        return 'Medium';
+    } else {
+        return 'High';
+    }
+}
+    document.getElementById('mainCont').style.display = 'none';
+    resultContainer.style.display = 'block';
+    document.getElementById('goBackBtn').style.display = 'block';
+}
+function goBack() {
+    document.getElementById('mainCont').style.display = 'block';
+    document.getElementById('result-container').style.display = 'none';
+    document.getElementById('goBackBtn').style.display = 'none';
+}
     </script>
 </body>
 </html>
