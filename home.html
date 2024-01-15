@@ -259,7 +259,7 @@ button {
     box-sizing: border-box;
 }
 .Sideimage{
-  background-image: url("static/static/images/Website-medicines.png");
+  background-image: url("{% static 'images/Website-medicines.png' %}");
   opacity: 0.5;
   background-repeat: no-repeat;
   background-size: cover;
@@ -323,7 +323,7 @@ hr{
             <h4><b>Question 2 :</b></h4>
             <li class="mt-3">What is the age of the patient</li>
             <div class="ms-4 mt-3">
-                <label for="age">Select a drug:</label>
+                <label for="age">Select age:</label>
                 <select id="q2" name="q2">
                     <option value="1" data-score="1">&lt;40</option>
                     <option value="2" data-score="2">40-69</option>
@@ -335,7 +335,7 @@ hr{
             <h4><b>Question 3 :</b></h4>
             <li class="mt-3">what is the smoking history?</li>
             <div class="ms-4 mt-3">
-                <label for="history">Select a drug:</label>
+                <label for="history">Select :</label>
                 <select id="q3" name="q3">
                     <option value="1" data-score="1">Never</option>
                     <option value="2" data-score="2">Ex-smoker</option>
@@ -347,7 +347,7 @@ hr{
             <div class="row mt-3 mb-4">
                 <div class="col col-xl-4 col-lg-4 ms-4">
 
-                    <label for="tissue">Select a drug:</label>
+                    <label for="tissue">Select :</label>
                     <select id="q4" name="q4" style="width: 17rem;">
                         <option value="1" data-score="1">Ankylosing Spondylitis</option>
                         <option value="2" data-score="2">Anti-synthetase syndromes</option>
@@ -498,19 +498,63 @@ hr{
     let totalScore = 0;
     let displayMessage = "";
 
-    for (let i = 1; i <= 16; i++) {
-        const selectElement = document.getElementById(`q${i}`);
-        const radioElement = document.querySelector(`input[name="q${i}"]:checked`);
+    for (let i = 1; i <= 9; i++) {
+            const selectElement = document.getElementById(`q${i}`);
+            const radioElement = document.querySelector(`input[name="q${i}"]:checked`);
 
-        if (selectElement && selectElement.tagName === 'SELECT') {
-            totalScore += parseInt(selectElement.value);
-        } else if (radioElement && radioElement.type === 'radio') {
-            totalScore += parseInt(radioElement.value);
+            if (!selectElement && !radioElement) {
+                alert(`Please answer Question ${i}.`);
+                return; // Stop calculation if any of the first 9 questions is not answered
+            }
+
+            if (selectElement && selectElement.tagName === 'SELECT') {
+                totalScore += parseInt(selectElement.value);
+            } else if (radioElement && radioElement.type === 'radio') {
+                totalScore += parseInt(radioElement.value);
+            }
         }
-    }
 
-    const q9Radio = document.querySelector('input[name="q9"]:checked');
-    const q14Radio = document.querySelector('input[name="q14"]:checked');
+        const q9Radio = document.querySelector('input[name="q9"]:checked');
+        const q14Radio = document.querySelector('input[name="q14"]:checked');
+
+        if (q9Radio && q9Radio.value === '2') {
+            for (let i = 10; i <= 14; i++) {
+                const selectElement = document.getElementById(`q${i}`);
+                const radioElement = document.querySelector(`input[name="q${i}"]:checked`);
+
+                if (!selectElement && !radioElement) {
+                    alert(`Please answer Question ${i}.`);
+                    return; // Stop calculation if any of the required questions is not answered
+                }
+
+                if (selectElement && selectElement.tagName === 'SELECT') {
+                    totalScore += parseInt(selectElement.value);
+                } else if (radioElement && radioElement.type === 'radio') {
+                    totalScore += parseInt(radioElement.value);
+                }
+            }
+        }
+        if (q14Radio && q14Radio.value === '2') {
+                for (let i = 15; i <= 16; i++) {
+                    const selectElement = document.getElementById(`q${i}`);
+                    const radioElement = document.querySelector(`input[name="q${i}"]:checked`);
+
+                    if (!selectElement && !radioElement) {
+                        alert(`Please answer Question ${i}.`);
+                        return; // Stop calculation if any of the required questions is not answered
+                    }
+
+                    if (selectElement && selectElement.tagName === 'SELECT') {
+                        totalScore += parseInt(selectElement.value);
+                    } else if (radioElement && radioElement.type === 'radio') {
+                        totalScore += parseInt(radioElement.value);
+                    }
+                }
+            }
+        
+
+    // const q9Radio = document.querySelector('input[name="q9"]:checked');
+    // const q14Radio = document.querySelector('input[name="q14"]:checked');
     if (q9Radio && q9Radio.value === '1') {
         displayMessage = `<span style='font-family: Garamond; font-size: 20px;'> Your patient does not have pre-existing ILD and has a score of ${totalScore}. A Delphi consensus suggests that a score of 8 is associated with very low risk, a score of 15 is associated with low risk and a score of 19 is associated with medium risk of developing pneumotoxicity </span>`;
     }
