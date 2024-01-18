@@ -274,7 +274,10 @@ button {
 hr{
   width: 70vh;
 }
-
+.headtext{
+  color: #b10000;
+  font-weight: 6px;
+}
     </style>
 
 </head>
@@ -285,12 +288,18 @@ hr{
       <div class="col col-xl-3 col-lg-3 Sideimage">
 
       </div>
-      <div class="col col-xl-6 col-lg-6" style="background-color: #e5eaf5;border: 4px solid rgb(233, 212, 212);">
+      <div class="col col-xl-6 col-lg-6 mt-1" style="background-color: #e5eaf5;border: 4px solid rgb(233, 212, 212);">
 
       
         <br>
-        <center><h1><b><i>Pneumotoxicity Risk Score Predictor</i></b></h1></center>
-        <center><p>A score calculator used topredict the risk score before starting medicines</p></center>
+        <center><h1><b><i>A score calculator used to predict the risk score before starting medicines</i></b></h1></center>
+        <div class="container mt-5 mx-5">
+        <p class="headtext">* This risk tool has not been validated for clinical use and should only be used for research purposes.</p>
+        <p class="headtext">* It has been derived from the results of a global Delphi exercise that >150 experts contributed to (ref).</p>
+        <p class="headtext">* The tool includes drugs that >30% of expert respondents would counsel patients for the risk of pneumotoxicity when starting these medications.</p>
+        <p class="headtext">* The following drugs are not included in the tool: azathioprine, belimumab, canakinumab, fligotinib, hydroxychloroquine, ixekizumab, sarilumab, secukinumab, sulfasalazine, upadacitinib. This is because fewer than 30% of expert respondents would counsel patients for pneumotoxicity when starting these drugs.</p>
+      </div>
+
 
         <div class="mt-5 mx-5 container" id="mainCont">
             <h4><b>Question 1 :</b></h4>
@@ -427,8 +436,8 @@ hr{
             <h4><b>Question 14 :</b></h4>
             <li class="mt-3">Do you have serial data (serial HRCTs or serial lung function) that informs if the pre-existing ILD has progressed?</li>
             <div class="ms-4 mt-3 mb-5">
-                <input type="radio" name="q14" value="2" data-score="2" id="nope"> <label for="nope">No</label><br>
-                <input type="radio" name="q14" value="1" data-score="1" id="yeah"> <label for="yeah">Yes</label><br>
+                <input type="radio" name="q14" value="2" data-score="2" id="nope"> <label for="nope">Yes</label><br>
+                <input type="radio" name="q14" value="1" data-score="1" id="yeah"> <label for="yeah">No</label><br>
 
             </div> <hr> 
             <div class="hidden" id="innerHiddenDiv">
